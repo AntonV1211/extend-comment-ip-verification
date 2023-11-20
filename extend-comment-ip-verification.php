@@ -6,17 +6,22 @@ Description: The plugin checks the user's IP address using a hidden field in the
 Author: Anton Volkov
 */
 
-$url_to_script = "" . plugin_dir_url(__FILE__) . 'assets/js/main.js';
-wp_enqueue_script(
-    'main',
-    $url_to_script,
-	array(),
-    '1.0.0',
-    array(
-        'strategy'  => 'defer',
-    )
-);
 
+function add_js_script() {
+	$url_to_script = plugin_dir_url(__FILE__) . 'assets/js/main.js';
+	wp_enqueue_script(
+		'main',
+		$url_to_script,
+		array(),
+		'1.0.0',
+		array(
+			'strategy'  => 'defer',
+		)
+	);
+}
+
+
+add_action( 'wp_enqueue_scripts', 'add_js_script' );
 add_action( 'comment_form_logged_in_after', 'extend_comment_custom_fields' );
 add_action( 'comment_form_after_fields', 'extend_comment_custom_fields' );
 
